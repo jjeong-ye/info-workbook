@@ -114,7 +114,8 @@ p, li { font-size: 1rem; }
   color: #fff;
   border: 2.5px solid var(--ink);
   border-radius: var(--radius);
-  padding: 46px 40px;
+  padding: 38px 40px;
+  text-align: center;
   box-shadow: 7px 7px 0 var(--ink);
 }
 /* 포스터 안쪽 손그림 느낌 점선 프레임 */
@@ -126,8 +127,8 @@ p, li { font-size: 1rem; }
   border-radius: 10px;
   pointer-events: none;
 }
-.hero h1 { position: relative; margin: 0 0 14px; font-size: 2.05rem; line-height: 1.5; color: #fff; }
-.hero p { position: relative; margin: 0; font-size: 1.05rem; line-height: 1.8; color: #f2f7ee; }
+.hero h1 { position: relative; margin: 0; font-size: 2.05rem; line-height: 1.55; color: #fff; }
+.hero p { position: relative; margin: 10px 0 0; font-size: 1.05rem; line-height: 1.8; color: #f2f7ee; }
 
 .flow {
   display: flex;
@@ -752,6 +753,22 @@ details.trouble[open] summary { border-bottom: 1px solid var(--line); margin-bot
   body { background: #fff; }
   .block, .exam-part { box-shadow: none; break-inside: avoid; }
 }
+
+/* 섹션 제목 옆 수준 배지 (필수/선택/도전) */
+.lvl {
+  font-family: "Pretendard", "Apple SD Gothic Neo", "맑은 고딕", sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 999px;
+  border: 1.5px solid var(--line);
+  margin-left: 8px;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+.lvl.req  { background: #e6f2df; color: #2f7d43; border-color: #bfe0c2; }
+.lvl.opt  { background: #fff7e6; color: #9a6a12; border-color: #f0dca0; }
+.lvl.chal { background: #fbe4de; color: #b93a2c; border-color: #f2c3b8; }
 
 /* 활동 시간·수준 안내 (차시 머리) */
 .levels {

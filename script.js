@@ -71,16 +71,16 @@ function renderLesson(id) {
     </div>`).join(''));
   if (l.predict) body += step('실행 결과 예상하기',
     `${l.predict.body}<button class="reveal-btn" data-reveal>정답 확인</button><div class="answer">${l.predict.answer}</div>`);
-  if (l.follow) body += step('따라 하기 실습', l.follow +
+  if (l.follow) body += step('따라 하기 실습 <span class="lvl req">🟢 필수</span>', l.follow +
     `<div class="note done-check">✅ <b>완료 확인</b> · 실행했을 때 예상한 결과가 나왔나요? 안 되면 아래 <b>🛠 작동하지 않아요?</b> 체크리스트를 확인하세요.</div>`);
-  if (l.change) body += step('바꿔 보기 / 스스로 해보기', l.change);
+  if (l.change) body += step('바꿔 보기 / 스스로 해보기 <span class="lvl opt">🟡 선택 · 🔺 도전</span>', l.change);
   if (l.debug) body += step('오류 고치기',
     `<p>${l.debug.intro}</p><div class="buggy"><div class="code" data-bug="${l.debug.bug}" data-ok="${encodeURIComponent(l.debug.ok)}" data-no="${encodeURIComponent(l.debug.no)}">${l.debug.lines.map(x => `<span class="bugline">${x}</span>`).join('\n')}</div></div><div class="feedback"></div>`);
   if (l.summary) body += step('배운 점 정리',
     `<div class="summary-grid">${l.summary.items.map(s => `<div class="summary-item"><b>${s.t}</b><br />${s.d}</div>`).join('')}</div>
      <p style="margin-top:12px">오늘 배운 것을 한 문장으로 정리해 보세요.</p>
      <textarea class="write-area" placeholder="${l.summary.reflect || ''}"></textarea>`);
-  if (l.challenge) body += step('추가 도전', l.challenge, ' challenge');
+  if (l.challenge) body += step('추가 도전 <span class="lvl chal">🔺 도전</span>', l.challenge, ' challenge');
   if (l.assessment) body += `<div class="block ${c} exam">${l.assessment}</div>`;
 
   lessonEl.innerHTML = `
@@ -95,7 +95,7 @@ function renderLesson(id) {
           ${l.meta.device ? `<span class="chip">🖥 ${l.meta.device}</span>` : ''}
           ${l.meta.prereq ? `<span class="chip">📌 선행: ${l.meta.prereq}</span>` : ''}
         </div>
-        <div class="levels">⏱ 기본 45분 · 심화 90분 &nbsp;|&nbsp; 🟢 필수(따라 하기) · 🟡 선택(바꿔 보기) · 🔺 도전(추가 도전)</div>
+        <div class="levels">⏱ 기본 45분 · 심화 90분 &nbsp;|&nbsp; 🟢 필수(따라 하기) · 🟡 선택(바꿔 보기) · 🔺 도전(스스로 해보기)</div>
       </div>
       ${body}
       ${buildAreaSupport(l, c)}
@@ -134,10 +134,11 @@ function buildAreaSupport(l, c) {
       <div class="note">🎤 소리(마이크·스피커)를 쓰는 활동은 <b>마이크로비트 V2 권장</b> · V1은 시뮬레이터 또는 대체 활동을 이용하세요.</div></div>`;
   }
   if (l.area === 'ai' && !l.assessment) {
-    html += `<div class="block ${c} support"><h3>🔧 장비가 없어도 괜찮아요</h3>
+    html += `<div class="block ${c} support"><h3>🧰 인공지능 실습 도구</h3>
       <ul class="clean">
-        <li><b>카메라가 없으면</b> : 미리 준비한 <b>예시 사진</b>을 업로드해 학습·테스트</li>
-        <li><b>마이크가 없으면</b> : 저장된 <b>소리 파일</b>이나 위 모의 체험으로 원리를 이해</li>
+        <li>🔗 <b>티처블머신 바로가기</b> : <a href="https://teachablemachine.withgoogle.com" target="_blank" rel="noopener">teachablemachine.withgoogle.com</a> → '시작하기' → <b>이미지/오디오</b> 프로젝트 선택</li>
+        <li>📷 <b>카메라·마이크가 있으면</b> : 무리마다 사진을 직접 찍거나 소리를 녹음해 <b>여러 개(예: 20~30개)</b> 학습시켜 보세요.</li>
+        <li>🖼 <b>없으면</b> : 미리 준비한 <b>예시 사진·소리 파일</b>을 업로드하거나, 위 <b>모의 체험</b>으로 원리를 이해해요.</li>
         <li>학습 데이터 수 / 테스트 결과 / 틀린 예측 원인 / 데이터 추가 후 변화를 아래 '내 기록'에 적어 보세요.</li>
       </ul></div>`;
   }

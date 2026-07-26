@@ -960,7 +960,7 @@ LESSONS.push({
   follow: `
     <p><b>규칙 기반 / 데이터 기반</b> 사례를 각각 2개씩 찾아 표로 정리해 보세요.</p>
     <table class="tbl"><tr><th>규칙 기반(사람이 규칙)</th><th>데이터 기반(AI 학습)</th></tr>
-    <tr><td>예: 자판기</td><td>예: 얼굴 인식</td></tr>
+    <tr><td>예: 자판기</td><td>예: 사진 속 동물 구분</td></tr>
     <tr><td></td><td></td></tr></table>`,
   summary: { items: [
     { t: '규칙 기반', d: '사람이 규칙 정함' }, { t: '데이터 기반', d: 'AI가 학습' },
