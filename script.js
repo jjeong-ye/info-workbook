@@ -19,9 +19,10 @@ function buildHome() {
     html += `<div class="area-group">
       <h2 class="area-title ${area.color}">${area.icon} ${area.name}</h2>
       <p class="area-desc">${area.desc}</p>
+      ${key === 'ai' ? `<p class="area-link"><a href="https://jjeong-ye.github.io/info-ai/" target="_blank" rel="noopener">🔗 인공지능 이론·교사용 수업자료 더 보기 (정보 인공지능 사이트) →</a></p>` : ''}
       <div class="cards">` +
       list.map(l => `
-        <div class="card ${area.color}${l.locked ? ' locked-card' : ''}" data-lesson="${l.id}">
+        <div class="card ${area.color}${l.locked ? ' locked-card' : ''}" data-lesson="${l.id}" role="button" tabindex="0" aria-label="${l.locked ? '수행평가 (잠김)' : (l.no + '. ' + l.title)}">
           <div class="badge">${l.locked ? '🔒 ' : l.no + ' · '}${area.short}</div>
           <h3>${l.locked ? '수행평가' : l.title}</h3>
           <p>${l.locked ? '평가 당일에 진행해요.' : l.subtitle}</p>
@@ -38,7 +39,15 @@ function buildHome() {
 /* ---------- 차시 렌더 ---------- */
 function renderLesson(id) {
   const l = LESSONS.find(x => x.id === id);
-  if (!l) return;
+  if (!l) {
+    // 잘못된 링크(#존재하지않는차시 등)로 들어와도 화면이 멈추지 않게 안내를 보여 준다.
+    lessonEl.innerHTML = `<div class="lesson active">
+      <div class="block"><h3>차시를 찾을 수 없어요</h3>
+      <p class="note">요청한 차시가 없거나 주소가 잘못되었어요. 아래 버튼으로 처음 화면으로 돌아가 주세요.</p>
+      <div class="lesson-nav"><button data-home>🏠 홈으로 →</button></div></div></div>`;
+    showLesson();
+    return;
+  }
 
   // 잠금 처리
   if (l.locked && !unlocked[l.id]) {
@@ -46,7 +55,7 @@ function renderLesson(id) {
     return;
   }
 
-  const area = AREAS[l.area];
+  const area = AREAS[l.area] || { color: '', icon: '', name: '', short: '' };
   const c = area.color;
   currentLessonId = l.id;
   const idx = LESSONS.indexOf(l);
@@ -66,8 +75,8 @@ function renderLesson(id) {
   if (l.quiz) body += step('확인 문제', l.quiz.map((q, qi) => `
     <div class="quiz" data-answer="${q.answer}">
       <div class="qtext">Q${qi + 1}. ${q.q}</div>
-      <div class="opts">${q.opts.map(o => `<div class="opt">${o}</div>`).join('')}</div>
-      <div class="feedback"></div>
+      <div class="opts">${q.opts.map(o => `<div class="opt" role="button" tabindex="0">${o}</div>`).join('')}</div>
+      <div class="feedback" role="status" aria-live="polite"></div>
     </div>`).join(''));
   if (l.predict) body += step('실행 결과 예상하기',
     `${l.predict.body}<button class="reveal-btn" data-reveal>정답 확인</button><div class="answer">${l.predict.answer}</div>`);
@@ -75,7 +84,7 @@ function renderLesson(id) {
     `<div class="note done-check">✅ <b>완료 확인</b> · 실행했을 때 예상한 결과가 나왔나요? 안 되면 아래 <b>🛠 작동하지 않아요?</b> 체크리스트를 확인하세요.</div>`);
   if (l.change) body += step('바꿔 보기 / 스스로 해보기 <span class="lvl opt">🟡 선택 · 🔺 도전</span>', l.change);
   if (l.debug) body += step('오류 고치기',
-    `<p>${l.debug.intro}</p><div class="buggy"><div class="code" data-bug="${l.debug.bug}" data-ok="${encodeURIComponent(l.debug.ok)}" data-no="${encodeURIComponent(l.debug.no)}">${l.debug.lines.map(x => `<span class="bugline">${x}</span>`).join('\n')}</div></div><div class="feedback"></div>`);
+    `<p>${l.debug.intro}</p><div class="buggy"><div class="code" data-bug="${l.debug.bug}" data-ok="${encodeURIComponent(l.debug.ok)}" data-no="${encodeURIComponent(l.debug.no)}">${l.debug.lines.map(x => `<span class="bugline" role="button" tabindex="0">${x}</span>`).join('\n')}</div></div><div class="feedback" role="status" aria-live="polite"></div>`);
   if (l.summary) body += step('배운 점 정리',
     `<div class="summary-grid">${l.summary.items.map(s => `<div class="summary-item"><b>${s.t}</b><br />${s.d}</div>`).join('')}</div>
      <p style="margin-top:12px">오늘 배운 것을 한 문장으로 정리해 보세요.</p>
@@ -242,6 +251,20 @@ document.addEventListener('click', (e) => {
   if (areaBtn) { const f = LESSONS.find(l => l.area === areaBtn.dataset.area); if (f) renderLesson(f.id); }
 });
 
+/* ---------- 키보드 조작 (Enter·Space) ----------
+   div로 만든 조작 요소(카드·보기·버그줄·AI 샘플)도 키보드로 쓸 수 있게 한다.
+   진짜 <button>은 브라우저가 알아서 처리하므로 건드리지 않는다. */
+document.addEventListener('keydown', (e) => {
+  if (e.key !== 'Enter' && e.key !== ' ' && e.key !== 'Spacebar') return;
+  const t = e.target;
+  if (!t || !t.matches) return;
+  if (t.tagName === 'BUTTON' || t.tagName === 'A' || t.tagName === 'INPUT' || t.tagName === 'TEXTAREA') return;
+  if (t.matches('.card, .opt, .sample, .bugline, [data-lesson], [data-area], [data-home]')) {
+    e.preventDefault(); // Space로 인한 스크롤 방지
+    t.click();
+  }
+});
+
 /* ---------- 상호작용 연결 ---------- */
 function wireLesson() {
   lessonEl.querySelectorAll('.quiz').forEach(quiz => {
@@ -256,7 +279,7 @@ function wireLesson() {
       opt.classList.add(ok ? 'correct' : 'wrong');
       if (!ok) opts[answer].classList.add('correct');
       fb.classList.add('show', ok ? 'good' : 'bad');
-      fb.textContent = ok ? '정답이에요! 잘했어요 👍' : '아쉬워요. 초록색이 정답이에요. 개념을 다시 확인해 볼까요?';
+      fb.textContent = ok ? '정답이에요! 잘했어요 👍' : '아쉬워요. ✓ 표시된 항목이 정답이에요. 개념을 다시 확인해 볼까요?';
     }));
   });
 
@@ -377,7 +400,7 @@ function simAiSound(el) { simClassifier(el, AI_SND, '이 소리는'); }
 function simClassifier(el, data, lead) {
   const keys = Object.keys(data);
   el.innerHTML = `<div class="ai-sim">
-    <div class="samples">${keys.map(k => `<div class="sample" data-key="${k}" title="${data[k].name}">${data[k].emoji}</div>`).join('')}</div>
+    <div class="samples">${keys.map(k => `<div class="sample" data-key="${k}" title="${data[k].name}" role="button" tabindex="0" aria-label="${data[k].name}">${data[k].emoji}</div>`).join('')}</div>
     <div class="predict-bars"></div>
     <div class="predict-out">위에서 하나를 선택하면 인공지능의 판단을 보여 줍니다.</div>
     <div class="sim-disclaimer">ℹ️ 이 활동은 인공지능의 분류 결과가 <b>확률로 표시되는 방식</b>을 이해하기 위한 <b>모의 체험</b>입니다. 실제 데이터를 학습한 인공지능 모델의 결과가 아닙니다.</div></div>`;
