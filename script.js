@@ -85,6 +85,9 @@ function renderLesson(id) {
   if (l.change) body += step('바꿔 보기 / 스스로 해보기 <span class="lvl opt">🟡 선택 · 🔺 도전</span>', l.change);
   if (l.debug) body += step('오류 고치기',
     `<p>${l.debug.intro}</p><div class="buggy"><div class="code" data-bug="${l.debug.bug}" data-ok="${encodeURIComponent(l.debug.ok)}" data-no="${encodeURIComponent(l.debug.no)}">${l.debug.lines.map(x => `<span class="bugline" role="button" tabindex="0">${x}</span>`).join('\n')}</div></div><div class="feedback" role="status" aria-live="polite"></div>`);
+  if (l.record) body += step('✍️ 내 답·기록 쓰기 <span class="lvl req">🟢 필수</span>',
+    `<p class="note">실습하며 <b>관찰한 것</b>과 <b>내 생각</b>을 적어 보세요. 입력한 내용은 이 브라우저에 자동 저장돼요.</p>` +
+    l.record.items.map(it => `<div class="record-item"><div class="record-q">${it}</div><textarea class="write-area" rows="3" placeholder="여기에 적어 보세요"></textarea></div>`).join(''));
   if (l.summary) body += step('배운 점 정리',
     `<div class="summary-grid">${l.summary.items.map(s => `<div class="summary-item"><b>${s.t}</b><br />${s.d}</div>`).join('')}</div>
      <p style="margin-top:12px">오늘 배운 것을 한 문장으로 정리해 보세요.</p>

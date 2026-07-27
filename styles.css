@@ -814,6 +814,21 @@ summary:focus-visible,
 .opt.correct::after { content: " ✓ 정답"; font-weight: 800; margin-left: 6px; }
 .opt.wrong::after   { content: " ✕"; font-weight: 800; margin-left: 6px; }
 
+/* 2-b) 내 답·기록 쓰기 블록 (주로 인공지능 차시) */
+.record-item { margin: 12px 0 16px; }
+.record-q {
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 6px;
+  padding-left: 12px;
+  border-left: 4px solid var(--ai);
+  line-height: 1.6;
+}
+.lesson.ai .record-q { border-left-color: var(--ai); }
+.lesson.entry .record-q { border-left-color: var(--entry); }
+.lesson.micro .record-q { border-left-color: var(--micro); }
+.record-item .write-area { min-height: 56px; }
+
 /* 3) AI 영역 안내 링크(→ 이론·교사용 사이트) */
 .area-link { margin: -6px 0 14px; font-size: 0.92rem; }
 .area-link a { color: var(--ai); font-weight: 700; text-decoration: none; }
