@@ -19,7 +19,6 @@ function buildHome() {
     html += `<div class="area-group">
       <h2 class="area-title ${area.color}">${area.icon} ${area.name}</h2>
       <p class="area-desc">${area.desc}</p>
-      ${key === 'ai' ? `<p class="area-link"><a href="https://jjeong-ye.github.io/info-ai/" target="_blank" rel="noopener">🔗 인공지능 이론·교사용 수업자료 더 보기 (정보 인공지능 사이트) →</a></p>` : ''}
       <div class="cards">` +
       list.map(l => `
         <div class="card ${area.color}${l.locked ? ' locked-card' : ''}" data-lesson="${l.id}" role="button" tabindex="0" aria-label="${l.locked ? '수행평가 (잠김)' : (l.no + '. ' + l.title)}">
