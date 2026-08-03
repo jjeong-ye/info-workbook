@@ -21,7 +21,7 @@ function buildHome() {
       <p class="area-desc">${area.desc}</p>
       <div class="cards">` +
       list.map(l => `
-        <div class="card ${area.color}${l.locked ? ' locked-card' : ''}" data-lesson="${l.id}" role="button" tabindex="0" aria-label="${l.locked ? '수행평가 (잠김)' : (l.no + '. ' + l.title)}">
+        <div class="card ${area.color}${l.locked ? ' locked-card' : ''}" data-lesson="${l.id}">
           <div class="badge">${l.locked ? '🔒 ' : l.no + ' · '}${area.short}</div>
           <h3>${l.locked ? '수행평가' : l.title}</h3>
           <p>${l.locked ? '평가 당일에 진행해요.' : l.subtitle}</p>
@@ -38,15 +38,7 @@ function buildHome() {
 /* ---------- 차시 렌더 ---------- */
 function renderLesson(id) {
   const l = LESSONS.find(x => x.id === id);
-  if (!l) {
-    // 잘못된 링크(#존재하지않는차시 등)로 들어와도 화면이 멈추지 않게 안내를 보여 준다.
-    lessonEl.innerHTML = `<div class="lesson active">
-      <div class="block"><h3>차시를 찾을 수 없어요</h3>
-      <p class="note">요청한 차시가 없거나 주소가 잘못되었어요. 아래 버튼으로 처음 화면으로 돌아가 주세요.</p>
-      <div class="lesson-nav"><button data-home>🏠 홈으로 →</button></div></div></div>`;
-    showLesson();
-    return;
-  }
+  if (!l) return;
 
   // 잠금 처리
   if (l.locked && !unlocked[l.id]) {
@@ -54,7 +46,7 @@ function renderLesson(id) {
     return;
   }
 
-  const area = AREAS[l.area] || { color: '', icon: '', name: '', short: '' };
+  const area = AREAS[l.area];
   const c = area.color;
   currentLessonId = l.id;
   const idx = LESSONS.indexOf(l);
@@ -74,23 +66,43 @@ function renderLesson(id) {
   if (l.quiz) body += step('확인 문제', l.quiz.map((q, qi) => `
     <div class="quiz" data-answer="${q.answer}">
       <div class="qtext">Q${qi + 1}. ${q.q}</div>
-      <div class="opts">${q.opts.map(o => `<div class="opt" role="button" tabindex="0">${o}</div>`).join('')}</div>
-      <div class="feedback" role="status" aria-live="polite"></div>
+      <div class="opts">${q.opts.map(o => `<div class="opt">${o}</div>`).join('')}</div>
+      <div class="feedback"></div>
     </div>`).join(''));
-  if (l.predict) body += step('실행 결과 예상하기',
-    `${l.predict.body}<button class="reveal-btn" data-reveal>정답 확인</button><div class="answer">${l.predict.answer}</div>`);
+  if (l.predict) {
+    const predictContent = l.area === 'ai'
+      ? `${l.predict.body}
+         <div class="predict-write">
+           <div class="note worksheet-note">✍️ 먼저 예상한 결과와 그 이유를 <b>학습지에 작성하세요.</b></div>
+           <button class="reveal-btn compare-btn" data-ai-reveal aria-expanded="false">예시 답안 확인하기</button>
+           <div class="answer example-answer"><b>예시 답안</b><br />${l.predict.answer}</div>
+         </div>`
+      : `${l.predict.body}
+         <div class="predict-write">
+           <label class="write-label">내가 예상한 실행 결과</label>
+           <textarea class="write-area predict-input" placeholder="실행 결과를 먼저 예상해서 적어 보세요."></textarea>
+           <label class="write-label">그렇게 생각한 이유</label>
+           <textarea class="write-area predict-reason" placeholder="코드가 어떤 순서로 실행되는지 설명해 보세요."></textarea>
+           <button class="reveal-btn compare-btn" data-compare disabled>내 답과 비교하기</button>
+           <div class="answer example-answer"><b>예시 답안</b><br />${l.predict.answer}</div>
+         </div>`;
+    body += step('실행 결과 예상하기', predictContent);
+  }
   if (l.follow) body += step('따라 하기 실습 <span class="lvl req">🟢 필수</span>', l.follow +
     `<div class="note done-check">✅ <b>완료 확인</b> · 실행했을 때 예상한 결과가 나왔나요? 안 되면 아래 <b>🛠 작동하지 않아요?</b> 체크리스트를 확인하세요.</div>`);
   if (l.change) body += step('바꿔 보기 / 스스로 해보기 <span class="lvl opt">🟡 선택 · 🔺 도전</span>', l.change);
   if (l.debug) body += step('오류 고치기',
-    `<p>${l.debug.intro}</p><div class="buggy"><div class="code" data-bug="${l.debug.bug}" data-ok="${encodeURIComponent(l.debug.ok)}" data-no="${encodeURIComponent(l.debug.no)}">${l.debug.lines.map(x => `<span class="bugline" role="button" tabindex="0">${x}</span>`).join('\n')}</div></div><div class="feedback" role="status" aria-live="polite"></div>`);
-  if (l.record) body += step('✍️ 내 답·기록 쓰기 <span class="lvl req">🟢 필수</span>',
-    `<p class="note">실습하며 <b>관찰한 것</b>과 <b>내 생각</b>을 적어 보세요. 입력한 내용은 이 브라우저에 자동 저장돼요.</p>` +
-    l.record.items.map(it => `<div class="record-item"><div class="record-q">${it}</div><textarea class="write-area" rows="3" placeholder="여기에 적어 보세요"></textarea></div>`).join(''));
-  if (l.summary) body += step('배운 점 정리',
-    `<div class="summary-grid">${l.summary.items.map(s => `<div class="summary-item"><b>${s.t}</b><br />${s.d}</div>`).join('')}</div>
-     <p style="margin-top:12px">오늘 배운 것을 한 문장으로 정리해 보세요.</p>
-     <textarea class="write-area" placeholder="${l.summary.reflect || ''}"></textarea>`);
+    `<p>${l.debug.intro}</p><div class="buggy"><div class="code" data-bug="${l.debug.bug}" data-ok="${encodeURIComponent(l.debug.ok)}" data-no="${encodeURIComponent(l.debug.no)}">${l.debug.lines.map(x => `<span class="bugline">${x}</span>`).join('\n')}</div></div><div class="feedback"></div>`);
+  if (l.advance) body += step('더 나아가기 <span class="lvl advance-lvl">🚀 개념 확장</span>', l.advance, ' advance');
+  if (l.summary) {
+    const summaryContent = l.area === 'ai'
+      ? `<div class="summary-grid">${l.summary.items.map(s => `<div class="summary-item"><b>${s.t}</b><br />${s.d}</div>`).join('')}</div>
+         <div class="note worksheet-note" style="margin-top:12px">✍️ 오늘 배운 내용을 한 문장으로 <b>학습지에 정리하세요.</b></div>`
+      : `<div class="summary-grid">${l.summary.items.map(s => `<div class="summary-item"><b>${s.t}</b><br />${s.d}</div>`).join('')}</div>
+         <p style="margin-top:12px">오늘 배운 것을 한 문장으로 정리해 보세요.</p>
+         <textarea class="write-area" placeholder="${l.summary.reflect || ''}"></textarea>`;
+    body += step('배운 점 정리', summaryContent);
+  }
   if (l.challenge) body += step('추가 도전 <span class="lvl chal">🔺 도전</span>', l.challenge, ' challenge');
   if (l.assessment) body += `<div class="block ${c} exam">${l.assessment}</div>`;
 
@@ -105,13 +117,14 @@ function renderLesson(id) {
           ${l.meta.tool ? `<span class="chip">🔧 ${l.meta.tool}</span>` : ''}
           ${l.meta.device ? `<span class="chip">🖥 ${l.meta.device}</span>` : ''}
           ${l.meta.prereq ? `<span class="chip">📌 선행: ${l.meta.prereq}</span>` : ''}
+          ${l.meta.standard ? `<span class="chip">🎯 ${l.meta.standard}</span>` : ''}
         </div>
-        <div class="levels">⏱ 기본 45분 · 심화 90분 &nbsp;|&nbsp; 🟢 필수(따라 하기) · 🟡 선택(바꿔 보기) · 🔺 도전(스스로 해보기)</div>
+        <div class="levels">⏱ 기본 45분 · 심화 90분 &nbsp;|&nbsp; 🟢 필수(따라 하기) · 🟡 선택(바꿔 보기) · 🚀 더 나아가기 · 🔺 도전</div>
       </div>
       ${body}
       ${buildAreaSupport(l, c)}
       ${(l.teacher && !l.assessment) ? `<details class="teacher"><summary>👩‍🏫 교사용 참고 (학생 화면에는 표시하지 않음)</summary>${l.teacher}</details>` : ''}
-      ${buildSaveBar()}
+      ${buildSaveBar(l)}
       <div class="lesson-nav">
         <button ${prev ? `data-lesson="${prev.id}"` : 'disabled'}>← ${prev ? prev.no : '이전'}</button>
         <button ${next ? `data-lesson="${next.id}"` : 'data-home'}>${next ? next.no + ' →' : '홈으로 →'}</button>
@@ -150,7 +163,7 @@ function buildAreaSupport(l, c) {
         <li>🔗 <b>티처블머신 바로가기</b> : <a href="https://teachablemachine.withgoogle.com" target="_blank" rel="noopener">teachablemachine.withgoogle.com</a> → '시작하기' → <b>이미지/오디오</b> 프로젝트 선택</li>
         <li>📷 <b>카메라·마이크가 있으면</b> : 무리마다 사진을 직접 찍거나 소리를 녹음해 <b>여러 개(예: 20~30개)</b> 학습시켜 보세요.</li>
         <li>🖼 <b>없으면</b> : 미리 준비한 <b>예시 사진·소리 파일</b>을 업로드하거나, 위 <b>모의 체험</b>으로 원리를 이해해요.</li>
-        <li>학습 데이터 수 / 테스트 결과 / 틀린 예측 원인 / 데이터 추가 후 변화를 아래 '내 기록'에 적어 보세요.</li>
+        <li>학습 데이터 수 / 테스트 결과 / 틀린 예측 원인 / 데이터 추가 후 변화는 <b>학습지에 작성하세요.</b></li>
       </ul></div>`;
   }
   html += `<details class="trouble"><summary>🛠 작동하지 않아요? — 오류 해결 체크리스트</summary>${troubleList(l.area)}</details>`;
@@ -175,7 +188,12 @@ function troubleList(area) {
     <li>카메라·마이크 <b>권한</b>이 허용되었나요?</li>
     <li>학습 데이터와 테스트 데이터를 <b>구분</b>했나요?</li></ul>`;
 }
-function buildSaveBar() {
+function buildSaveBar(l) {
+  if (l && l.area === 'ai') {
+    return `<div class="savebar">
+      <span class="save-status">✍️ 선택·실험 결과와 생각은 학습지에 작성하세요.</span>
+      <span class="save-actions"><button class="mini-btn" data-print>🖨 화면 인쇄</button></span></div>`;
+  }
   return `<div class="savebar">
     <span class="save-status">✍️ 입력한 내용은 이 브라우저에 자동 저장돼요.</span>
     <span class="save-actions">
@@ -253,20 +271,6 @@ document.addEventListener('click', (e) => {
   if (areaBtn) { const f = LESSONS.find(l => l.area === areaBtn.dataset.area); if (f) renderLesson(f.id); }
 });
 
-/* ---------- 키보드 조작 (Enter·Space) ----------
-   div로 만든 조작 요소(카드·보기·버그줄·AI 샘플)도 키보드로 쓸 수 있게 한다.
-   진짜 <button>은 브라우저가 알아서 처리하므로 건드리지 않는다. */
-document.addEventListener('keydown', (e) => {
-  if (e.key !== 'Enter' && e.key !== ' ' && e.key !== 'Spacebar') return;
-  const t = e.target;
-  if (!t || !t.matches) return;
-  if (t.tagName === 'BUTTON' || t.tagName === 'A' || t.tagName === 'INPUT' || t.tagName === 'TEXTAREA') return;
-  if (t.matches('.card, .opt, .sample, .bugline, [data-lesson], [data-area], [data-home]')) {
-    e.preventDefault(); // Space로 인한 스크롤 방지
-    t.click();
-  }
-});
-
 /* ---------- 상호작용 연결 ---------- */
 function wireLesson() {
   lessonEl.querySelectorAll('.quiz').forEach(quiz => {
@@ -281,15 +285,51 @@ function wireLesson() {
       opt.classList.add(ok ? 'correct' : 'wrong');
       if (!ok) opts[answer].classList.add('correct');
       fb.classList.add('show', ok ? 'good' : 'bad');
-      fb.textContent = ok ? '정답이에요! 잘했어요 👍' : '아쉬워요. ✓ 표시된 항목이 정답이에요. 개념을 다시 확인해 볼까요?';
+      fb.textContent = ok ? '정답이에요! 잘했어요 👍' : '아쉬워요. 초록색이 정답이에요. 개념을 다시 확인해 볼까요?';
     }));
   });
 
-  lessonEl.querySelectorAll('[data-reveal]').forEach(btn => btn.addEventListener('click', () => {
-    const ans = btn.nextElementSibling;
-    ans.classList.toggle('show');
-    btn.textContent = ans.classList.contains('show') ? '정답 닫기' : '정답 확인';
-  }));
+  lessonEl.querySelectorAll('[data-compare]').forEach(btn => {
+    const wrap = btn.closest('.predict-write');
+    const resultInput = wrap.querySelector('.predict-input');
+    const reasonInput = wrap.querySelector('.predict-reason');
+    const ans = wrap.querySelector('.example-answer');
+
+    const updateCompareState = () => {
+      const ready = resultInput.value.trim() !== '' && reasonInput.value.trim() !== '';
+      btn.disabled = !ready;
+      if (!ready && ans.classList.contains('show')) {
+        ans.classList.remove('show');
+        btn.textContent = '내 답과 비교하기';
+        btn.setAttribute('aria-expanded', 'false');
+      }
+    };
+
+    resultInput.addEventListener('input', updateCompareState);
+    reasonInput.addEventListener('input', updateCompareState);
+    btn.setAttribute('aria-expanded', 'false');
+    btn.addEventListener('click', () => {
+      if (btn.disabled) return;
+      ans.classList.toggle('show');
+      const open = ans.classList.contains('show');
+      btn.textContent = open ? '예시 답안 닫기' : '내 답과 비교하기';
+      btn.setAttribute('aria-expanded', String(open));
+    });
+
+    btn._updateCompareState = updateCompareState;
+  });
+
+  lessonEl.querySelectorAll('[data-ai-reveal]').forEach(btn => {
+    const wrap = btn.closest('.predict-write');
+    const ans = wrap ? wrap.querySelector('.example-answer') : null;
+    if (!ans) return;
+    btn.addEventListener('click', () => {
+      ans.classList.toggle('show');
+      const open = ans.classList.contains('show');
+      btn.textContent = open ? '예시 답안 닫기' : '예시 답안 확인하기';
+      btn.setAttribute('aria-expanded', String(open));
+    });
+  });
 
   lessonEl.querySelectorAll('.buggy .code').forEach(code => {
     const bug = parseInt(code.dataset.bug, 10);
@@ -320,13 +360,16 @@ function wireLesson() {
   const status = lessonEl.querySelector('.save-status');
   saveEls.forEach((el, i) => {
     if (el.closest('[data-sim]')) return;
-    const key = 'wb:' + currentLessonId + ':' + i;
+    const key = 'wb:v6:' + currentLessonId + ':' + i;
     const saved = localStorage.getItem(key);
     if (saved !== null) el.value = saved;
     el.addEventListener('input', () => {
       localStorage.setItem(key, el.value);
       if (status) status.textContent = '💾 저장됨 · ' + new Date().toLocaleTimeString();
     });
+  });
+  lessonEl.querySelectorAll('[data-compare]').forEach(btn => {
+    if (typeof btn._updateCompareState === 'function') btn._updateCompareState();
   });
   const printBtn = lessonEl.querySelector('[data-print]');
   if (printBtn) printBtn.addEventListener('click', () => window.print());
@@ -335,8 +378,11 @@ function wireLesson() {
     if (!confirm('이 차시에 입력한 내 기록을 모두 지울까요?')) return;
     saveEls.forEach((el, i) => {
       if (el.closest('[data-sim]')) return;
-      localStorage.removeItem('wb:' + currentLessonId + ':' + i);
+      localStorage.removeItem('wb:v6:' + currentLessonId + ':' + i);
       el.value = '';
+    });
+    lessonEl.querySelectorAll('[data-compare]').forEach(btn => {
+      if (typeof btn._updateCompareState === 'function') btn._updateCompareState();
     });
     if (status) status.textContent = '기록을 초기화했어요.';
   });
@@ -402,7 +448,7 @@ function simAiSound(el) { simClassifier(el, AI_SND, '이 소리는'); }
 function simClassifier(el, data, lead) {
   const keys = Object.keys(data);
   el.innerHTML = `<div class="ai-sim">
-    <div class="samples">${keys.map(k => `<div class="sample" data-key="${k}" title="${data[k].name}" role="button" tabindex="0" aria-label="${data[k].name}">${data[k].emoji}</div>`).join('')}</div>
+    <div class="samples">${keys.map(k => `<div class="sample" data-key="${k}" title="${data[k].name}">${data[k].emoji}</div>`).join('')}</div>
     <div class="predict-bars"></div>
     <div class="predict-out">위에서 하나를 선택하면 인공지능의 판단을 보여 줍니다.</div>
     <div class="sim-disclaimer">ℹ️ 이 활동은 인공지능의 분류 결과가 <b>확률로 표시되는 방식</b>을 이해하기 위한 <b>모의 체험</b>입니다. 실제 데이터를 학습한 인공지능 모델의 결과가 아닙니다.</div></div>`;
