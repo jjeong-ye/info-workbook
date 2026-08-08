@@ -122,7 +122,7 @@ LESSONS.push({
 LESSONS.push({
   id: 'p04', area: 'prog', no: '03', title: '연산 — 산술 · 비교 · 논리',
   subtitle: '계산하고, 비교하고, 여러 조건을 묶기',
-  meta: { time: '실습', tool: '엔트리', device: '기기 필요 없음', prereq: '02', concepts: '산술연산·비교연산·논리연산(그리고/또는/아니다)' },
+  meta: { time: '실습', tool: '엔트리', device: '기기 필요 없음', prereq: '02', concepts: '산술 연산·비교 연산·논리 연산(그리고/또는/아니다)' },
   question: { body: '"국어와 수학 점수가 모두 60점 이상일 때만 통과"는 어떻게 표현할까요?',
     note: '조건을 여러 개 묶을 때 <b>논리 연산</b>(그리고·또는·아니다)을 씁니다.' },
   concept: `
@@ -161,7 +161,7 @@ LESSONS.push({
 LESSONS.push({
   id: 'p05', area: 'prog', no: '04', title: '선택 구조 — 조건에 따라 갈라지기',
   subtitle: '단일 · 이중 · 다중 · 중첩 조건',
-  meta: { time: '실습', tool: '엔트리', device: '기기 필요 없음', prereq: '03', concepts: '선택구조·조건·중첩·다중분기' },
+  meta: { time: '실습', tool: '엔트리', device: '기기 필요 없음', prereq: '03', concepts: '선택 구조·조건·중첩·다중분기' },
   question: { body: '점수에 따라 "우수 / 합격 / 불합격"으로 나누려면 조건을 몇 개 써야 할까요?',
     note: '조건이 참/거짓이냐에 따라 다른 길로 가는 것이 <b>선택 구조</b>입니다.' },
   concept: `
@@ -191,7 +191,7 @@ LESSONS.push({
 <span class="k">아니면</span>   "엉뚱한 곳으로... 길을 잃었다 😵"</div>
     <div class="note">💡 선택마다 다른 결말·장면으로 이어지면 진짜 게임북이 돼요. 조건을 더 넣어 <b>2단계 갈림길</b>도 만들어 보세요!</div>`,
   change: `<ul class="clean">
-    <li>합격 안에서 다시 80 이상이면 "우량"으로 <b>중첩 조건</b> 넣기</li>
+    <li>합격 안에서 다시 80 이상이면 "우수"로 <b>중첩 조건</b> 넣기</li>
     <li>합격이면 배경을 초록, 불합격이면 빨강으로 바꾸기</li></ul>`,
   debug: { intro: '아래 판정기는 몇 점을 넣어도 항상 "합격"이 나옵니다. 잘못된 줄을 클릭하세요.',
     lines: ['만약 점수 ≥ 0 이면', '    "합격"', '아니면', '    "불합격"'],
@@ -206,7 +206,7 @@ LESSONS.push({
 LESSONS.push({
   id: 'p06', area: 'prog', no: '05', title: '반복 구조 — 되풀이로 간단하게',
   subtitle: '횟수 반복 · 조건 반복 · 중첩 반복 · 무작위',
-  meta: { time: '실습', tool: '엔트리', device: '기기 필요 없음', prereq: '04', concepts: '반복구조·조건반복·중첩반복·무작위수' },
+  meta: { time: '실습', tool: '엔트리', device: '기기 필요 없음', prereq: '04', concepts: '반복 구조·조건반복·중첩반복·무작위 수' },
   question: { body: '"참 잘했어요"를 100번 말하게 하려면 블록을 100개 쌓아야 할까요?',
     note: '같은 일을 되풀이할 때는 <b>반복 구조</b> 하나면 충분해요.' },
   concept: `
@@ -470,7 +470,7 @@ LESSONS.push({
 LESSONS.push({
   id: 'h01', area: 'phys', no: '01', title: '피지컬 컴퓨팅과 마이크로비트 살펴보기',
   subtitle: '피지컬 컴퓨팅 · 입력/처리/출력 · 기기 구성',
-  meta: { time: '개념+실습', tool: 'makecode.microbit.org', device: '기기 또는 시뮬레이터', prereq: '없음', concepts: '피지컬컴퓨팅·입출력·기기구성', standard: '[9정01-02]' },
+  meta: { time: '개념+실습', tool: 'makecode.microbit.org', device: '기기 또는 시뮬레이터', prereq: '없음', concepts: '피지컬컴퓨팅·입출력·기기구성' },
   question: { body: '화면 속 프로그램을 넘어, 실제로 빛나고 소리 나는 장치를 만들 수 있을까요?',
     note: '마이크로비트는 손바닥만 한 작은 컴퓨터예요. 센서로 <b>입력</b>받아 <b>처리</b>하고 LED·소리로 <b>출력</b>합니다.' },
   concept: `
@@ -507,7 +507,7 @@ LESSONS.push({
 LESSONS.push({
   id: 'h02', area: 'phys', no: '02', title: '출력 — LED로 그림·글자·숫자 나타내기',
   subtitle: 'LED 화면 · 아이콘 · 문자열 출력',
-  meta: { time: '실습', tool: 'MakeCode', device: '기기 또는 시뮬레이터', prereq: '01', concepts: 'LED출력·아이콘·문자열', standard: '[9정01-02]' },
+  meta: { time: '실습', tool: 'MakeCode', device: '기기 또는 시뮬레이터', prereq: '01', concepts: 'LED출력·아이콘·문자열' },
   question: { body: '5×5 작은 불빛으로 어떻게 글자와 그림을 표현할까요?',
     note: '마이크로비트 앞면의 <b>25개 LED</b>를 켜고 끄면 아이콘·글자·숫자를 나타낼 수 있어요.' },
   concept: `
@@ -544,7 +544,7 @@ LESSONS.push({
 LESSONS.push({
   id: 'h03', area: 'phys', no: '03', title: '입력 — 버튼 A·B로 반응하기',
   subtitle: '버튼 입력 · 이벤트 · 분기',
-  meta: { time: '실습', tool: 'MakeCode', device: '기기 또는 시뮬레이터', prereq: '02', concepts: '버튼입력·이벤트', standard: '[9정01-02]' },
+  meta: { time: '실습', tool: 'MakeCode', device: '기기 또는 시뮬레이터', prereq: '02', concepts: '버튼입력·이벤트' },
   question: { body: '버튼을 누르면 다른 반응이 나오게 하려면 어떻게 할까요?',
     note: '마이크로비트에는 버튼 <b>A</b>와 <b>B</b>가 있어요. "버튼을 눌렀을 때"는 하나의 <b>이벤트</b>입니다.' },
   concept: `
@@ -580,7 +580,7 @@ LESSONS.push({
 LESSONS.push({
   id: 'h04', area: 'phys', no: '04', title: '흔들기와 무작위 — 디지털 주사위',
   subtitle: '가속도 센서 · 무작위 수 · 변수',
-  meta: { time: '실습', tool: 'MakeCode', device: '기기 또는 시뮬레이터', prereq: '03', concepts: '가속도센서·흔들기·무작위·변수', standard: '[9정01-02]' },
+  meta: { time: '실습', tool: 'MakeCode', device: '기기 또는 시뮬레이터', prereq: '03', concepts: '가속도센서·흔들기·무작위·변수' },
   question: { body: '흔들면 숫자가 바뀌는 진짜 주사위를 만들 수 있을까요?',
     note: '마이크로비트는 <b>가속도 센서</b>로 흔들림을 감지해요. 여기에 <b>무작위 수</b>를 더하면 주사위가 됩니다.' },
   concept: `
@@ -622,7 +622,7 @@ LESSONS.push({
 LESSONS.push({
   id: 'h05', area: 'phys', no: '05', title: '변수와 조건 — 버튼 카운터·판정',
   subtitle: '변수 누적 · 조건 판단 · 비교 연산',
-  meta: { time: '실습', tool: 'MakeCode', device: '기기 또는 시뮬레이터', prereq: '04', concepts: '변수누적·조건·비교', standard: '[9정01-03]' },
+  meta: { time: '실습', tool: 'MakeCode', device: '기기 또는 시뮬레이터', prereq: '04', concepts: '변수누적·조건·비교' },
   question: { body: '버튼을 몇 번 눌렀는지 세어서, 목표에 도달하면 축하해 주려면?',
     note: '값을 저장하는 <b>변수</b>에 1씩 더해 세고, <b>조건</b>으로 판정하면 됩니다.' },
   concept: `
@@ -658,9 +658,9 @@ LESSONS.push({
 });
 
 LESSONS.push({
-  id: 'h06', area: 'phys', no: '06', title: '반복과 빛 센서 — 자동 무드 등',
+  id: 'h06', area: 'phys', no: '06', title: '반복과 빛 센서 — 자동 무드등',
   subtitle: '계속 반복 · 빛 센서 · 조건',
-  meta: { time: '실습', tool: 'MakeCode', device: '기기 또는 시뮬레이터', prereq: '05', concepts: '무한반복·빛센서·기준값', standard: '[9정01-02]·[9정01-03]' },
+  meta: { time: '실습', tool: 'MakeCode', device: '기기 또는 시뮬레이터', prereq: '05', concepts: '무한반복·빛센서·기준값' },
   question: { body: '어두워지면 저절로 켜지고 밝아지면 꺼지는 불빛은 어떻게 만들까요?',
     note: '<b>빛 센서</b>로 밝기를 계속 확인하려면 <b>무한 반복</b>이 필요해요.' },
   concept: `
@@ -676,13 +676,13 @@ LESSONS.push({
     </ul>`,
   quiz: [
     { q: '센서값을 쉬지 않고 확인하려면?', opts: ['한 번만 실행', '계속 반복', '버튼 누를 때만'], answer: 1 },
-    { q: '무드 등의 기준값 50은?', opts: ['사람이 정한 판단 기준', 'AI가 학습한 값', '무작위 값'], answer: 0 }
+    { q: '무드등의 기준값 50은?', opts: ['사람이 정한 판단 기준', 'AI가 학습한 값', '무작위 값'], answer: 0 }
   ],
   predict: { body: `<div class="code"><span class="k">만약</span> 빛 센서 값 &lt; 50 <span class="k">이면</span> LED 켜기 <span class="k">아니면</span> 끄기
 <span class="c">// 현재 빛 센서 값: 20 (어두움)</span></div>`,
     answer: 'LED가 <b>켜집니다</b>. 20은 기준값 50보다 작아(어두워) 조건이 참이기 때문이에요.' },
   follow: `
-    <p>🌙 <b>스마트 취침등!</b> 불을 끄면(어두워지면) 은은히 켜지고, 밝아지면 꺼지는 무드 등이에요. 시뮬레이터의 <b>빛 센서 슬라이더</b>를 움직이며 실험!</p>
+    <p>🌙 <b>스마트 취침등!</b> 불을 끄면(어두워지면) 은은히 켜지고, 밝아지면 꺼지는 무드등이에요. 시뮬레이터의 <b>빛 센서 슬라이더</b>를 움직이며 실험!</p>
     <table class="tbl"><tr><th>순서</th><th>블록</th></tr>
     <tr><td>1</td><td>계속 반복하기</td></tr>
     <tr><td>2</td><td>→ 만약 빛 센서 값 &lt; 50 이면 LED 모두 켜기</td></tr>
@@ -694,7 +694,7 @@ LESSONS.push({
     <li>버튼으로 강제로 끄는 기능 추가</li>
     <li>📊 밝은 곳·보통 밝기·어두운 곳의 센서값을 각각 측정하고, 자동 조명이 켜질 <b>기준값을 직접 정하기</b></li>
     <li>자동 가로등이 해결하는 문제와 오작동할 때 생길 수 있는 문제를 적기</li></ul>`,
-  debug: { intro: '이 무드 등은 밝을 때 켜지고 어두울 때 꺼집니다(반대). 잘못된 줄을 클릭하세요.',
+  debug: { intro: '이 무드등은 밝을 때 켜지고 어두울 때 꺼집니다(반대). 잘못된 줄을 클릭하세요.',
     lines: ['계속 반복:', '    만약 빛 센서 값 > 50 이면', '        LED 모두 켜기', '    아니면 화면 지우기'],
     bug: 1, ok: '맞아요! 부등호가 반대예요. 어두울 때(값이 작을 때) 켜려면 "< 50"으로 고쳐야 합니다. ✅',
     no: '이 줄은 정상이에요. 조건의 <b>부등호 방향</b>을 살펴보세요.' },
@@ -707,7 +707,7 @@ LESSONS.push({
 LESSONS.push({
   id: 'h07', area: 'phys', no: '07', title: '온도·소리 센서 활용',
   subtitle: '온도 경보기 · 소리 감지 · 여러 센서',
-  meta: { time: '실습', tool: 'MakeCode', device: '기기 또는 시뮬레이터', prereq: '06', concepts: '온도센서·소리센서·조건', standard: '[9정01-02]·[9정01-03]' },
+  meta: { time: '실습', tool: 'MakeCode', device: '기기 또는 시뮬레이터', prereq: '06', concepts: '온도센서·소리센서·조건' },
   question: { body: '더우면 알려 주는 장치, 시끄러우면 표시하는 장치도 만들 수 있을까요?',
     note: '마이크로비트에는 <b>온도</b>와 <b>소리 크기</b>를 재는 센서도 들어 있어요.' },
   concept: `
@@ -749,10 +749,11 @@ LESSONS.push({
 LESSONS.push({
   id: 'h08', area: 'phys', no: '08', title: '소리 출력과 무선 통신',
   subtitle: '음악(멜로디) · 무선(radio) 송수신',
-  meta: { time: '실습', tool: 'MakeCode', device: '기기 2대 권장 / 시뮬레이터', prereq: '07', concepts: '소리출력·음악·무선통신', standard: '[9정01-02]' },
+  meta: { time: '실습', tool: 'MakeCode', device: '기기 2대 권장 / 시뮬레이터', prereq: '07', concepts: '소리출력·음악·무선통신' },
   question: { body: '마이크로비트끼리 서로 신호를 주고받게 하려면 어떻게 할까요?',
     note: '스피커로 <b>소리(음악)</b>를 내고, <b>무선 통신</b>으로 다른 마이크로비트에 값을 보낼 수 있어요.' },
   concept: `
+    <div class="note">📡 <b>실습 방법</b> · 실제 마이크로비트가 있다면 <b>2대 1조</b>로 송신·수신을 나누어 실습해요. 기기가 부족하면 선생님의 안내에 따라 시뮬레이터 또는 시범으로 확인합니다. 두 기기의 <b>무선 그룹 번호</b>가 같아야 서로 통신할 수 있어요.</div>
     <ul class="clean">
       <li><b>소리 출력</b> : 음(멜로디)이나 효과음 내기</li>
       <li><b>무선 그룹</b> : 같은 그룹 번호끼리 통신 (예: 1번 그룹)</li>
@@ -797,7 +798,7 @@ LESSONS.push({
 LESSONS.push({
   id: 'a01', area: 'ai', no: '01', title: '인공지능이란? 우리 주변의 AI 찾기',
   subtitle: '인공지능의 뜻 · 지능 에이전트 · 생활 속 AI',
-  meta: { time: '개념+토론', tool: '활동지·Quick, Draw!', device: 'PC/태블릿 권장', prereq: '없음', concepts: '인공지능·지능에이전트', standard: '[9정04-01]' },
+  meta: { time: '개념+토론', tool: '활동지·Quick, Draw!', device: 'PC/태블릿 권장', prereq: '없음', concepts: '인공지능·지능에이전트' },
   question: { body: '스마트폰의 음성 비서, 유튜브 추천 영상 — 이것들은 어떻게 "똑똑하게" 작동할까요?',
     note: '인공지능(AI)은 사람처럼 <b>인식하고 판단하는</b> 능력을 컴퓨터로 흉내 낸 기술이에요.' },
   concept: `
@@ -835,7 +836,7 @@ LESSONS.push({
 LESSONS.push({
   id: 'a02', area: 'ai', no: '02', title: '규칙 기반 vs 데이터 기반(기계학습)',
   subtitle: '일반 프로그램과 인공지능의 차이',
-  meta: { time: '개념+활동', tool: '활동지', device: '기기 필요 없음', prereq: '01', concepts: '규칙기반·기계학습', standard: '[9정04-01]' },
+  meta: { time: '개념+활동', tool: '활동지', device: '기기 필요 없음', prereq: '01', concepts: '규칙기반·기계학습' },
   question: { body: '사람이 규칙을 하나하나 정하지 않아도, 컴퓨터가 데이터에서 패턴을 찾을 수 있을까요?',
     note: '마이크로비트에서 "온도≥28이면 덥다"는 <b>사람이 규칙</b>을 정했죠. 기계학습은 여러 데이터에서 <b>패턴을 학습한 모델</b>을 만들어요.' },
   concept: `
@@ -866,7 +867,7 @@ LESSONS.push({
 LESSONS.push({
   id: 'a03', area: 'ai', no: '03', title: '학습 데이터 · 특성 · 레이블',
   subtitle: '인공지능은 무엇을 보고 배울까',
-  meta: { time: '개념+활동', tool: '활동지·사진/낱말 카드', device: '기기 필요 없음', prereq: '02', concepts: '학습데이터·특성·레이블·분류/예측', standard: '[9정04-02]' },
+  meta: { time: '개념+활동', tool: '활동지·사진/낱말 카드', device: '기기 필요 없음', prereq: '02', concepts: '학습데이터·특성·레이블·분류/예측' },
   question: { body: '인공지능에게 "이건 고양이야"라고 가르치려면 무엇을 줘야 할까요?',
     note: '인공지능은 예시(<b>학습 데이터</b>)를 보고, 구분에 쓰이는 <b>특성</b>을 찾아 배웁니다.' },
   concept: `
@@ -903,7 +904,7 @@ LESSONS.push({
 LESSONS.push({
   id: 'a04', area: 'ai', no: '04', title: '이미지 분류 체험 — 티처블머신',
   subtitle: '사진을 학습시켜 분류하는 AI 만들기',
-  meta: { time: '실습', tool: '티처블머신, 엔트리 AI', device: 'PC/태블릿 필요(웹캠 권장)', prereq: '03', concepts: '이미지분류·학습·확률', standard: '[9정04-03]' },
+  meta: { time: '실습', tool: '티처블머신, 엔트리 AI', device: 'PC/태블릿 필요(웹캠 권장)', prereq: '03', concepts: '이미지분류·학습·확률' },
   question: { body: '내가 직접 사진을 보여 주며 가르치면, 컴퓨터가 새 사진도 알아볼까요?',
     note: '티처블머신으로 사진을 <b>여러 장 학습</b>시키면, 처음 보는 사진도 어느 쪽인지 <b>확률</b>로 알려 줘요.' },
   concept: `
@@ -928,7 +929,7 @@ LESSONS.push({
       <li>틀린 결과가 나오면 원인을 확인하고 데이터를 추가·수정하여 다시 학습해요.</li>
       <li>최종 테스트 결과와 개선 전후의 변화를 비교해요.</li>
     </ol>
-    <div class="note">💡 웹캠이 없으면 선생님이 제공한 사진 파일을 업로드해도 돼요. 사람의 얼굴·외모로 성격이나 능력을 판단하는 모델은 만들지 않아요.<br>✍️ 테스트 결과와 개선 내용은 <b>학습지에 작성하세요.</b></div>
+    <div class="note">📷 카메라 사용 권한 창이 나타나면 <b>선생님의 안내에 따라 허용</b>하세요. 웹캠이 없거나 권한을 사용할 수 없으면 선생님이 제공한 사진 파일을 업로드해도 돼요. 사람의 얼굴·외모로 성격이나 능력을 판단하는 모델은 만들지 않아요.<br>✍️ 테스트 결과와 개선 내용은 <b>학습지에 작성하세요.</b></div>
     <details class="trouble"><summary>확률 표시 방식을 먼저 체험하고 싶다면</summary><div class="sim" data-sim="aiImage"></div></details>`,
   change: `<ul class="clean">
     <li>티처블머신으로 <b>가위·바위·보</b>를 각 30장씩 학습시키기</li>
@@ -947,7 +948,7 @@ LESSONS.push({
 LESSONS.push({
   id: 'a05', area: 'ai', no: '05', title: '소리 분류 체험',
   subtitle: '소리 데이터로 배우는 인공지능',
-  meta: { time: '실습', tool: '티처블머신(오디오)', device: 'PC/태블릿 필요(마이크 권장)', prereq: '04', concepts: '소리분류·오디오데이터', standard: '[9정04-03]' },
+  meta: { time: '실습', tool: '티처블머신(오디오)', device: 'PC/태블릿 필요(마이크 권장)', prereq: '04', concepts: '소리분류·오디오데이터' },
   question: { body: '인공지능이 사진뿐 아니라 소리도 구분할 수 있을까요?',
     note: '박수·말소리·동물 울음소리처럼 <b>소리도 데이터</b>로 학습시켜 분류할 수 있어요.' },
   concept: `
@@ -964,7 +965,7 @@ LESSONS.push({
   follow: `
     <p>🐯 <b>정글 소리 탐정 — 확률 표시 방식 모의 체험</b>: 소리를 하나 고르면 AI가 어떤 소리일지 <b>확률(%)</b>로 어떻게 보여 주는지 체험해요. (실제 소리를 학습한 결과가 아니라 '표시 방식' 체험이에요.)</p>
     <div class="sim" data-sim="aiSound"></div>
-    <div class="note">💡 진짜로 하려면 티처블머신 오디오로 '박수 / 말소리 / 조용함'을 <b>직접 녹음·학습</b>시켜 보세요. 그럼 <b>박수 두 번이면 불이 켜지는 장치</b>도 만들 수 있어요! 👏💡<br>✍️ 분류 결과와 소음의 영향은 <b>학습지에 작성하세요.</b></div>`,
+    <div class="note">🎤 마이크 사용 권한 창이 나타나면 <b>선생님의 안내에 따라 허용</b>하세요. 진짜로 하려면 티처블머신 오디오로 '박수 / 말소리 / 조용함'을 <b>직접 녹음·학습</b>시켜 보세요. 마이크를 사용할 수 없으면 선생님이 제공한 소리 자료나 모의 체험으로 진행해요.<br>✍️ 분류 결과와 소음의 영향은 <b>학습지에 작성하세요.</b></div>`,
   change: `<ul class="clean">
     <li>"박수 / 말소리 / 조용함"을 학습시켜 구분해 보기</li>
     <li>주변 소음이 결과에 어떤 영향을 주는지 관찰하기</li></ul>`,
@@ -977,10 +978,11 @@ LESSONS.push({
 LESSONS.push({
   id: 'a06', area: 'ai', no: '06', title: '텍스트 분류 · 감정 분석 · 챗봇',
   subtitle: '글을 이해하는 인공지능',
-  meta: { time: '실습', tool: '엔트리 AI, 텍스트 분류 도구', device: 'PC/태블릿 필요', prereq: '04', concepts: '텍스트분류·감정분석·챗봇·자연어', standard: '[9정04-03]' },
+  meta: { time: '실습', tool: '엔트리 AI, 텍스트 분류 도구', device: 'PC/태블릿 필요', prereq: '04', concepts: '텍스트 분류·감정 분석·챗봇·자연어' },
   question: { body: '댓글이 칭찬인지 악플인지, 인공지능이 알아챌 수 있을까요?',
     note: '글(텍스트)도 학습시키면 <b>주제·감정</b>을 분류할 수 있어요. 챗봇은 질문을 이해해 답합니다.' },
   concept: `
+    <div class="note">🔎 <b>먼저 구분해요.</b> 이번 차시에서 만드는 규칙 기반 챗봇은 인공지능 모델 자체가 아니라, 사람이 정한 규칙에 따라 동작하는 프로그램입니다. 데이터로 학습하는 텍스트 분류와 비교하며 차이를 확인해 봅시다.</div>
     <ul class="clean">
       <li><b>텍스트 분류</b> : 문장을 주제(스포츠·여행 등)로 나누기</li>
       <li><b>감정 분석</b> : 글이 긍정인지 부정인지 판단</li>
@@ -1015,7 +1017,7 @@ LESSONS.push({
 LESSONS.push({
   id: 'a07', area: 'ai', no: '07', title: '정확도 · 데이터의 양과 질 · 편향',
   subtitle: '인공지능은 왜 틀릴까',
-  meta: { time: '개념+실험', tool: '티처블머신/활동지', device: 'PC/태블릿 권장', prereq: '04', concepts: '정확도·데이터품질·편향', standard: '[9정04-02]·[9정04-05]' },
+  meta: { time: '개념+실험', tool: '티처블머신/활동지', device: 'PC/태블릿 권장', prereq: '04', concepts: '정확도·데이터품질·편향' },
   question: { body: '똑똑해 보이던 인공지능이 어떤 것은 자꾸 틀립니다. 왜 그럴까요?',
     note: '인공지능의 판단은 <b>학습한 데이터</b>에 달려 있어요. 데이터가 적거나 치우치면 틀리고 <b>편향</b>됩니다.' },
   concept: `
@@ -1052,7 +1054,7 @@ LESSONS.push({
 LESSONS.push({
   id: 'a08', area: 'ai', no: '08', title: '생성형 AI와 책임 있는 활용',
   subtitle: '결과 검증 · 개인정보 · 저작권 · 윤리',
-  meta: { time: '개념+토론', tool: '생성형 AI/활동지', device: 'PC/태블릿 권장', prereq: '01~07', concepts: '문제발견·생성형AI·개인정보·저작권·윤리', standard: '[9정04-04]·[9정04-05]' },
+  meta: { time: '개념+토론', tool: '생성형 AI/활동지', device: 'PC/태블릿 권장', prereq: '01~07', concepts: '문제발견·생성형AI·개인정보·저작권·윤리' },
   question: { body: '인공지능이 만들어 준 글과 그림, 그대로 믿고 내 것처럼 써도 될까요?',
     note: '생성형 AI는 편리하지만, <b>틀릴 수 있고</b> 개인정보·저작권 문제가 생길 수 있어요. 사람이 <b>검증하고 책임</b>져야 합니다.' },
   concept: `
@@ -1090,5 +1092,5 @@ LESSONS.push({
   summary: { items: [
     { t: '생성형 AI', d: '새로 만들어 냄' }, { t: '결과 검증', d: '사람이 확인' },
     { t: '개인정보', d: '함부로 입력 X' }, { t: '저작권·책임', d: '출처 존중' }],
-    reflect: '예: 사람이 규칙을 만들고 → 프로그램이 현실을 감지하고 → AI가 데이터로 판단하지만, 결과는 사람이 검증하고 책임 있게 활용해야 한다.' }
+    reflect: '예: 인공지능은 데이터를 바탕으로 판단하거나 새로운 결과를 만들지만 항상 옳은 것은 아니므로, 결과를 확인하고 개인정보·저작권·공정성을 고려해 책임 있게 활용해야 한다.' }
 });

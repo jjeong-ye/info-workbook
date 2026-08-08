@@ -117,7 +117,6 @@ function renderLesson(id) {
           ${l.meta.tool ? `<span class="chip">🔧 ${l.meta.tool}</span>` : ''}
           ${l.meta.device ? `<span class="chip">🖥 ${l.meta.device}</span>` : ''}
           ${l.meta.prereq ? `<span class="chip">📌 선행: ${l.meta.prereq}</span>` : ''}
-          ${l.meta.standard ? `<span class="chip">🎯 ${l.meta.standard}</span>` : ''}
         </div>
         <div class="levels">⏱ 기본 45분 · 심화 90분 &nbsp;|&nbsp; 🟢 필수(따라 하기) · 🟡 선택(바꿔 보기) · 🚀 더 나아가기 · 🔺 도전</div>
       </div>
@@ -477,6 +476,24 @@ function classify(pick, keys) {
   return s;
 }
 
+
+function wireResetAll() {
+  const btn = document.querySelector('[data-reset-all]');
+  if (!btn) return;
+  btn.addEventListener('click', () => {
+    const ok = confirm('이 브라우저에 저장된 워크북 학습 기록을 모두 지울까요? 이 작업은 되돌릴 수 없습니다.');
+    if (!ok) return;
+    try {
+      Object.keys(localStorage)
+        .filter(key => key.startsWith('wb:v6:'))
+        .forEach(key => localStorage.removeItem(key));
+      alert('워크북 학습 기록을 모두 초기화했습니다.');
+    } catch (e) {
+      alert('브라우저 저장 기록을 초기화하지 못했습니다. 브라우저 설정을 확인해 주세요.');
+    }
+  });
+}
+
 /* ---------- 초기화 ---------- */
 // 다른 사이트(이론 사이트 등)에서 index.html#a04 처럼 특정 차시로 바로 열 수 있게 한다.
 function openFromHash() {
@@ -485,5 +502,6 @@ function openFromHash() {
   return false;
 }
 buildHome();
+wireResetAll();
 if (!openFromHash()) showHome();
 window.addEventListener('hashchange', () => { if (!openFromHash()) showHome(); });
